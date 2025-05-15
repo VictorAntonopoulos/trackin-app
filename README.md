@@ -33,9 +33,7 @@ git clone https://github.com/seu-usuario/trackin-app.git
 cd trackin-app
 
 2. Instale as dependências:
-
 npm install
 
 3.Inicie o projeto com Expo:
-
 npx expo start
