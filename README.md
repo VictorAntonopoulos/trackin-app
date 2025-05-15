@@ -31,3 +31,11 @@ O **Track In** é um aplicativo mobile desenvolvido com **React Native + Expo**,
 ```bash
 git clone https://github.com/seu-usuario/trackin-app.git
 cd trackin-app
+
+2. Instale as dependências:
+
+npm install
+
+3.Inicie o projeto com Expo:
+
+npx expo start
