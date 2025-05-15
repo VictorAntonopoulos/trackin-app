@@ -24,18 +24,6 @@ O **Track In** é um aplicativo mobile desenvolvido com **React Native + Expo**,
 - AsyncStorage
 - Expo Google Fonts
 
-##📁 Estrutura de Pastas
-
-├── assets/               # Imagens e ícones do app
-├── src/
-│   ├── components/       # Componentes reutilizáveis
-│   ├── models/           # Tipagens (Moto.ts, etc)
-│   ├── navigation/       # AppRoutes e MainStack
-│   ├── screens/          # Telas do aplicativo
-│   └── storage/          # Persistência com AsyncStorage
-├── App.tsx               # Entrada principal do aplicativo
-├── app.json              # Configurações do Expo
-
 ## Como Executar o Projeto
 
 1. Clone o repositório:
