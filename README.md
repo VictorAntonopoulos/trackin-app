@@ -37,3 +37,14 @@ npm install
 
 3.Inicie o projeto com Expo:
 npx expo start
+
+
+├── assets/               # Imagens e ícones do app
+├── src/
+│   ├── components/       # Componentes reutilizáveis
+│   ├── models/           # Tipagens (Moto.ts, etc)
+│   ├── navigation/       # AppRoutes e MainStack
+│   ├── screens/          # Telas do aplicativo
+│   └── storage/          # Persistência com AsyncStorage
+├── App.tsx               # Entrada principal do aplicativo
+├── app.json              # Configurações do Expo
