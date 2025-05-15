@@ -25,6 +25,7 @@ O **Track In** é um aplicativo mobile desenvolvido com **React Native + Expo**,
 - Expo Google Fonts
 
 ##📁 Estrutura de Pastas
+
 ├── assets/               # Imagens e ícones do app
 ├── src/
 │   ├── components/       # Componentes reutilizáveis
