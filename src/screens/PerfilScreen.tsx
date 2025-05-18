@@ -1,5 +1,12 @@
 import React from 'react';
-import { View, Text, StyleSheet, Image, TouchableOpacity, Alert } from 'react-native';
+import {
+  View,
+  Text,
+  StyleSheet,
+  Image,
+  TouchableOpacity,
+  Alert,
+} from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
@@ -20,6 +27,20 @@ export default function PerfilScreen() {
     ]);
   };
 
+  const verOnboardingNovamente = async () => {
+    try {
+      await AsyncStorage.removeItem('@trackin:onboarding');
+      Alert.alert('Feito!', 'O onboarding será exibido novamente.');
+
+      navigation.reset({
+        index: 0,
+        routes: [{ name: 'Splash' }],
+      });
+    } catch (error) {
+      console.error('Erro ao redefinir onboarding:', error);
+    }
+  };
+
   return (
     <View style={styles.container}>
       <Image
@@ -31,6 +52,10 @@ export default function PerfilScreen() {
 
       <TouchableOpacity style={styles.botaoSair} onPress={handleLogout}>
         <Text style={styles.botaoTexto}>Sair do aplicativo</Text>
+      </TouchableOpacity>
+
+      <TouchableOpacity style={styles.botaoOnboarding} onPress={verOnboardingNovamente}>
+        <Text style={styles.textoOnboarding}>🔄 Ver onboarding novamente</Text>
       </TouchableOpacity>
     </View>
   );
@@ -69,5 +94,17 @@ const styles = StyleSheet.create({
     color: '#fff',
     fontSize: 16,
     fontWeight: 'bold',
+  },
+  botaoOnboarding: {
+    marginTop: 20,
+    backgroundColor: '#007bff20',
+    paddingVertical: 10,
+    paddingHorizontal: 20,
+    borderRadius: 8,
+  },
+  textoOnboarding: {
+    color: '#007bff',
+    fontSize: 15,
+    fontWeight: '600',
   },
 });
