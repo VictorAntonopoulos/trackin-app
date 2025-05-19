@@ -1,13 +1,30 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { View, Text, Image, StyleSheet, Button } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation, useRoute } from '@react-navigation/native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default function RegisterStep5() {
   const navigation = useNavigation<any>();
+  const route = useRoute<any>();
 
   const handleIrParaLogin = () => {
     navigation.navigate('Login');
   };
+
+  useEffect(() => {
+    const salvar = async () => {
+      const { nome, email, senha, local } = route.params;
+      const novoUsuario = { nome, email, senha, local };
+
+      const dados = await AsyncStorage.getItem('@trackin:usuarios');
+      const usuarios = dados ? JSON.parse(dados) : [];
+
+      usuarios.push(novoUsuario);
+      await AsyncStorage.setItem('@trackin:usuarios', JSON.stringify(usuarios));
+    };
+
+    salvar();
+  }, []);
 
   return (
     <View style={styles.container}>

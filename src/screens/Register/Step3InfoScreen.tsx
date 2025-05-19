@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
 import { View, Text, TextInput, Button, StyleSheet } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation, useRoute } from '@react-navigation/native';
 
 export default function RegisterStep3() {
   const [nome, setNome] = useState('');
   const [email, setEmail] = useState('');
-  const navigation = useNavigation();
+  const navigation = useNavigation<any>();
+  const route = useRoute<any>();
 
   return (
     <View style={styles.container}>
@@ -27,7 +28,13 @@ export default function RegisterStep3() {
 
       <Button
         title="Próximo"
-        onPress={() => navigation.navigate('RegisterStep4' as never)}
+        onPress={() =>
+          navigation.navigate('RegisterStep4', {
+            local: route.params?.local,
+            nome,
+            email,
+          })
+        }
       />
     </View>
   );

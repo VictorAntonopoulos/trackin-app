@@ -11,6 +11,7 @@ import {
   Platform
 } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import { saveUser } from '../storage/AuthStorage';
 
 export default function LoginScreen() {
@@ -18,12 +19,24 @@ export default function LoginScreen() {
   const [senha, setSenha] = useState('');
   const navigation = useNavigation<any>();
 
-  const handleLogin = () => {
-    if (email === 'admin@trackin.com' && senha === '123456') {
-      saveUser(email);
-      navigation.replace('App');
-    } else {
-      Alert.alert('Erro', 'Credenciais inválidas');
+  const handleLogin = async () => {
+    try {
+      const dados = await AsyncStorage.getItem('@trackin:usuarios');
+      const usuarios = dados ? JSON.parse(dados) : [];
+
+      const usuarioEncontrado = usuarios.find(
+        (u: any) => u.email === email && u.senha === senha
+      );
+
+      if (usuarioEncontrado) {
+        await saveUser(usuarioEncontrado); // salva o objeto completo
+        navigation.replace('App');
+      } else {
+        Alert.alert('Erro', 'E-mail ou senha inválidos');
+      }
+    } catch (error) {
+      Alert.alert('Erro', 'Não foi possível verificar o login');
+      console.error('Erro ao fazer login:', error);
     }
   };
 

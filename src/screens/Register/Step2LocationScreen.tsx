@@ -4,7 +4,7 @@ import { useNavigation } from '@react-navigation/native';
 
 export default function RegisterStep2() {
   const [local, setLocal] = useState('');
-  const navigation = useNavigation();
+  const navigation = useNavigation<any>();
 
   return (
     <View style={styles.container}>
@@ -18,7 +18,7 @@ export default function RegisterStep2() {
 
       <Button
         title="Próximo"
-        onPress={() => navigation.navigate('RegisterStep3' as never)}
+        onPress={() => navigation.navigate('RegisterStep3', { local })}
       />
     </View>
   );

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   View,
   Text,
@@ -12,6 +12,25 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default function PerfilScreen() {
   const navigation = useNavigation<any>();
+  const [email, setEmail] = useState('');
+  const [nome, setNome] = useState('');
+
+  useEffect(() => {
+    const carregarDadosUsuario = async () => {
+      try {
+        const dados = await AsyncStorage.getItem('@trackin:user');
+        if (dados) {
+          const usuario = JSON.parse(dados);
+          setEmail(usuario.email || '');
+          setNome(usuario.nome || '');
+        }
+      } catch (error) {
+        console.error('Erro ao carregar usuário:', error);
+      }
+    };
+
+    carregarDadosUsuario();
+  }, []);
 
   const handleLogout = async () => {
     Alert.alert('Sair', 'Deseja realmente sair do aplicativo?', [
@@ -31,11 +50,7 @@ export default function PerfilScreen() {
     try {
       await AsyncStorage.removeItem('@trackin:onboarding');
       Alert.alert('Feito!', 'O onboarding será exibido novamente.');
-
-      navigation.reset({
-        index: 0,
-        routes: [{ name: 'Splash' }],
-      });
+      navigation.reset({ index: 0, routes: [{ name: 'Splash' }] });
     } catch (error) {
       console.error('Erro ao redefinir onboarding:', error);
     }
@@ -47,15 +62,15 @@ export default function PerfilScreen() {
         source={{ uri: 'https://cdn-icons-png.flaticon.com/512/3177/3177440.png' }}
         style={styles.avatar}
       />
-      <Text style={styles.nome}>Administrador</Text>
-      <Text style={styles.email}>admin@trackin.com</Text>
+      <Text style={styles.nome}>{nome || 'Administrador'}</Text>
+      <Text style={styles.email}>{email}</Text>
 
       <TouchableOpacity style={styles.botaoSair} onPress={handleLogout}>
         <Text style={styles.botaoTexto}>Sair do aplicativo</Text>
       </TouchableOpacity>
 
       <TouchableOpacity style={styles.botaoOnboarding} onPress={verOnboardingNovamente}>
-        <Text style={styles.textoOnboarding}>🔄 Ver onboarding novamente</Text>
+        <Text style={styles.textoOnboarding}>🔄 </Text>
       </TouchableOpacity>
     </View>
   );

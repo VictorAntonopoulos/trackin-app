@@ -3,7 +3,7 @@ import { View, Text, StyleSheet, Button } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 
 export default function RegisterStep1() {
-  const navigation = useNavigation();
+  const navigation = useNavigation<any>();
 
   return (
     <View style={styles.container}>
@@ -12,7 +12,7 @@ export default function RegisterStep1() {
 
       <Button
         title="Continuar"
-        onPress={() => navigation.navigate('RegisterStep2' as never)}
+        onPress={() => navigation.navigate('RegisterStep2')}
       />
     </View>
   );
