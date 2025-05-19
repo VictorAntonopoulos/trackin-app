@@ -10,6 +10,7 @@ Victor Martins Antonopoulos – RM: 556313
 Leandro Correia Alves Filho – RM: 556203
 
 Julia Brito Ricardo – RM: 558831
+
 ---
 
 ## 🎯 Funcionalidades
