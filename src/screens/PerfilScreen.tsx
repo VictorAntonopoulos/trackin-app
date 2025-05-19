@@ -70,7 +70,7 @@ export default function PerfilScreen() {
       </TouchableOpacity>
 
       <TouchableOpacity style={styles.botaoOnboarding} onPress={verOnboardingNovamente}>
-        <Text style={styles.textoOnboarding}>🔄 </Text>
+        <Text style={styles.textoOnboarding}>🔄 Onboarding </Text>
       </TouchableOpacity>
     </View>
   );

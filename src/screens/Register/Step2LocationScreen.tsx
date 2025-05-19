@@ -11,7 +11,7 @@ export default function RegisterStep2() {
       <Text style={styles.title}>Onde você está?</Text>
       <TextInput
         style={styles.input}
-        placeholder="Digite sua localização"
+        placeholder="Digite sua localização (Opcional)"
         value={local}
         onChangeText={setLocal}
       />
