@@ -1,7 +1,12 @@
 # 📱 Track In - Sistema de Gestão de Motos no Pátio
 
 O **Track In** é um aplicativo mobile desenvolvido com **React Native + Expo**, que simula o controle e rastreamento de motos em pátios utilizando conceitos de **RFID**, **visão computacional** e localização. Foi desenvolvido como parte do Challenge 2025 da FIAP.
+👥 Integrantes
+Victor Martins Antonopoulos – RM: 556313
 
+Leandro Correia Alves Filho – RM: 556203
+
+Julia Brito Ricardo – RM: 558831
 ---
 
 ## 🎯 Funcionalidades
