@@ -29,7 +29,7 @@ export default function LoginScreen() {
       );
 
       if (usuarioEncontrado) {
-        await saveUser(usuarioEncontrado); // salva o objeto completo
+        await saveUser(usuarioEncontrado); 
         navigation.replace('App');
       } else {
         Alert.alert('Erro', 'E-mail ou senha inválidos');

@@ -1,11 +1,49 @@
-export type Moto = {
-  id: string;
-  modelo: 'Mottu Sport 110i' | 'Mottu POP 110i';
-  status: 'Disponível' | 'Retirada' | 'Em manutenção';
+export interface Coordenadas {
+  lat: number;
+  lon: number;
+}
+
+export interface Localizacao {
+  coordenadas: Coordenadas;
+  setor: string;
+}
+
+export interface Moto {
+  id: number;
+  patioId: number;
+  modelo: string;
+  status: string; 
   placa: string;
-  imagemUrl?: string;
-  localizacao?: {
-    coordenadas: { lat: number; lon: number };
-    setor: string;
-  };
-};
+  ano: number;
+  rfidTag?: string;
+  ultimaManutencao?: string;
+  imagemReferencia?: string;
+  caracteristicasVisuais?: string;
+  localizacao?: Localizacao; 
+}
+
+export interface CreateMotoDTO {
+  patioId: number;
+  modelo: string;
+  status: string;
+  placa: string;
+  ano: number;
+  rfidTag?: string;
+  ultimaManutencao?: string;
+  imagemReferencia?: string;
+  caracteristicasVisuais?: string;
+}
+
+export interface EditMotoDTO {
+  id: number;
+  patioId: number;
+  modelo: string;
+  status: string;
+  placa: string;
+  ano: number;
+  rfidTag?: string;
+  ultimaManutencao?: string;
+  imagemReferencia?: string;
+  caracteristicasVisuais?: string;
+}
+

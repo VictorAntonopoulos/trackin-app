@@ -1,4 +1,4 @@
-// src/navigation/MainStack.tsx
+
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
@@ -11,7 +11,7 @@ import AppRoutes from './AppRoutes';
 import CadastroScreen from '../screens/CadastroScreen';
 import BuscarScreen from '../screens/BuscarScreen';
 
-// 🆕 Etapas do registro com nomes padronizados
+
 import RegisterStep1 from '../screens/Register/Step1CreateAccountScreen';
 import RegisterStep2 from '../screens/Register/Step2LocationScreen';
 import RegisterStep3 from '../screens/Register/Step3InfoScreen';
@@ -33,7 +33,7 @@ export default function MainStack() {
         <Stack.Screen name="MotoForm" component={CadastroScreen} />
         <Stack.Screen name="MotoList" component={BuscarScreen} />
 
-        {/* Fluxo de registro moderno em 5 passos */}
+        
         <Stack.Screen name="RegisterStep1" component={RegisterStep1} />
         <Stack.Screen name="RegisterStep2" component={RegisterStep2} />
         <Stack.Screen name="RegisterStep3" component={RegisterStep3} />

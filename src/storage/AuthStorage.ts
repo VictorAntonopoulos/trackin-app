@@ -1,4 +1,4 @@
-// src/storage/AuthStorage.ts
+
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const AUTH_KEY = '@trackin:user';

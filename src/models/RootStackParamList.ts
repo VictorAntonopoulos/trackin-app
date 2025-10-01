@@ -6,4 +6,5 @@ export type RootStackParamList = {
   App: undefined;
   MotoForm: { moto?: Moto };
   MotoList: undefined;
+  Status: undefined; 
 };
