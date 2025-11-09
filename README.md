@@ -28,7 +28,7 @@ A versão final do aplicativo conta com:
 - 📦 **Build com Expo EAS (Android .apk)**  
 
 🎥 **Vídeo de Demonstração (YouTube):**  
-👉 [https://youtu.be/bavRon5fUTQ](https://youtu.be/bavRon5fUTQ)
+👉 [[https://youtu.be/bavRon5fUTQ](https://youtu.be/jwjcm7w70zM)](https://youtu.be/bavRon5fUTQ)
 
 ---
 
