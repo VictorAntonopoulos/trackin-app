@@ -20,7 +20,7 @@ Projeto desenvolvido como parte do **Challenge 2025 da FIAP**, com foco em arqui
 A versão final do aplicativo conta com:
 - 🌎 **Suporte a múltiplos idiomas (Português / Espanhol)**  
 - 🌙 **Tema dinâmico (claro/escuro)** com persistência automática  
-- 🔔 **Notificação Fake Inteligente** simulando lembrete de aluguel de moto  
+- 🔔 **Notificação Push Inteligente** lembrete de aluguel de moto  
 - ⚙️ **Integração total com a API TrackIn** (CRUD de motos e pátios)  
 - 🔐 **Autenticação local com persistência (AsyncStorage)**  
 - 🧩 **Arquitetura modular e componentizada**  
@@ -39,7 +39,7 @@ A versão final do aplicativo conta com:
 | 🏍️ **Gestão de Motos** | Cadastro, edição e visualização de motos com integração à API |
 | 🌎 **Internacionalização** | Alternância manual entre **Português / Espanhol** com persistência local |
 | 🌓 **Tema Dinâmico** | Alternância entre tema claro e escuro em tempo real |
-| 🔔 **Notificação Fake** | Simulação de lembrete de aluguel ao cadastrar uma moto |
+| 🔔 **Notificação Push** | Lembrete de aluguel ao cadastrar uma moto |
 | 👤 **Perfil do Usuário** | Exibe dados, idioma, tema e informações da build |
 | 🔒 **Autenticação Local** | Armazenamento de dados e sessão do usuário |
 | ⚙️ **Integração RESTful** | Comunicação com a API TrackIn via Axios |
@@ -55,7 +55,7 @@ A versão final do aplicativo conta com:
 | **Navegação** | React Navigation (`@react-navigation/native`, `stack`, `bottom-tabs`) |
 | **Formulários e Validação** | React Hook Form + Zod + @hookform/resolvers |
 | **Internacionalização (i18n)** | i18next + react-i18next + expo-localization |
-| **Notificações** | expo-notifications (simulação local fake) |
+| **Notificações** | expo-notifications  |
 | **Armazenamento Local** | @react-native-async-storage/async-storage |
 | **HTTP Client** | Axios |
 | **Estilização** | expo-linear-gradient, react-native-vector-icons |
@@ -84,7 +84,7 @@ trackin-app-att/
 │   │   ├── CadastroScreen.tsx
 │   │   └── Onboarding/
 │   ├── services/            # Integração com API (motoService, patioService)
-│   ├── utils/               # Helpers e notificações fake
+│   ├── utils/               # Helpers e notificações 
 │   ├── styles/              # Cores, espaçamento e tipografia
 │   └── i18n.ts              # Configuração do sistema de idiomas
 ├── babel.config.js
@@ -125,7 +125,7 @@ npx expo start
 ✅ i18n (Português e Espanhol)  
 ✅ Tema escuro/claro persistente  
 ✅ SplashScreen controlada com carregamento de fontes  
-✅ Notificação fake automática pós-cadastro  
+✅ Notificação automática pós-cadastro de moto
 ✅ API totalmente integrada via Axios  
 ✅ Navegação com abas e stack  
 ✅ Build EAS compatível com Expo SDK 53  
@@ -134,7 +134,6 @@ npx expo start
 
 ## 🔮 Melhorias Futuras
 
-- Integração real com notificações push (Firebase Cloud Messaging)  
 - Dashboard com estatísticas e relatórios  
 - Autenticação via API (usuários reais)  
 - Testes automatizados (unitários e integração)  
@@ -150,4 +149,4 @@ Desenvolvido de forma modular, o app simula com realismo o fluxo operacional de 
 
 📦 **Versão:** 1.0.0  
 🔖 **Commit Hash:** exibido na tela de perfil  
-👨‍💻 Desenvolvido por **Equipe Track In - FIAP 2TDS (2025)**  
+👨‍💻 Desenvolvido por **Equipe Track In - FIAP 2TDSPG (2025)**  
