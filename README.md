@@ -100,7 +100,7 @@ trackin-app-att/
 - Node.js (versão LTS)
 - npm ou yarn
 - Expo CLI (`npm install -g expo-cli`)
-- API TrackIn em execução
+- API TrackIn em execução, caso queria testar todas as screens
 
 ### Passos
 
