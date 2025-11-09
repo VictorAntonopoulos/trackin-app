@@ -1,0 +1,39 @@
+{
+  "expo": {
+    "name": "Track In",
+    "slug": "mottu-patio",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/trackin-logo.png",
+    "userInterfaceStyle": "light",
+    "splash": {
+      "image": "./assets/trackin-logo.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#ffffff"
+    },
+    "ios": {
+      "supportsTablet": true
+    },
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/adaptive-icon.png",
+        "backgroundColor": "#ffffff"
+      },
+      "edgeToEdgeEnabled": true,
+      "package": "com.victormartins.trackin"
+    },
+    "web": {
+      "favicon": "./assets/favicon.png"
+    },
+    "plugins": [
+      "expo-font",
+      "expo-asset",
+      "expo-localization"
+    ],
+    "extra": {
+      "eas": {
+        "projectId": "f1e42d62-25fc-4737-93e8-a123032683a5"
+      }
+    }
+  }
+}

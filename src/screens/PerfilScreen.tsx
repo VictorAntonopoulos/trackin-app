@@ -17,12 +17,14 @@ import { typography } from '../styles/typography';
 import { spacing } from '../styles/spacing';
 import { Card } from '../components/ui/Card';
 import { Button } from '../components/ui/Button';
+import { useTranslation } from 'react-i18next'; // ✅ tradução
 
 export default function PerfilScreen() {
   const navigation = useNavigation<any>();
   const [email, setEmail] = useState('');
   const [nome, setNome] = useState('');
   const { theme, toggleTheme } = useTheme();
+  const { t, i18n } = useTranslation();
 
   useEffect(() => {
     const carregarDadosUsuario = async () => {
@@ -37,32 +39,44 @@ export default function PerfilScreen() {
         console.error('Erro ao carregar usuário:', error);
       }
     };
-
     carregarDadosUsuario();
   }, []);
 
   const handleLogout = async () => {
-    Alert.alert('Sair', 'Deseja realmente sair do aplicativo?', [
-      { text: 'Cancelar', style: 'cancel' },
-      {
-        text: 'Sair',
-        style: 'destructive',
-        onPress: async () => {
-          await AsyncStorage.removeItem('@trackin:user');
-          navigation.replace('Login');
+    Alert.alert(
+      t('common.logout', 'Sair'),
+      t('common.logout_confirm', 'Deseja realmente sair do aplicativo?'),
+      [
+        { text: t('common.cancel', 'Cancelar'), style: 'cancel' },
+        {
+          text: t('common.logout', 'Sair'),
+          style: 'destructive',
+          onPress: async () => {
+            await AsyncStorage.removeItem('@trackin:user');
+            navigation.replace('Login');
+          },
         },
-      },
-    ]);
+      ]
+    );
   };
 
   const verOnboardingNovamente = async () => {
     try {
       await AsyncStorage.removeItem('@trackin:onboarding');
-      Alert.alert('Feito!', 'O onboarding será exibido novamente.');
+      Alert.alert(
+        t('common.success', 'Feito!'),
+        t('common.onboarding_reset', 'O onboarding será exibido novamente.')
+      );
       navigation.reset({ index: 0, routes: [{ name: 'Splash' }] });
     } catch (error) {
       console.error('Erro ao redefinir onboarding:', error);
     }
+  };
+
+  // 🔄 Mudar idioma
+  const changeLang = async (lang: 'pt' | 'es') => {
+    await i18n.changeLanguage(lang);
+    await AsyncStorage.setItem('language', lang);
   };
 
   const dynamicStyles = StyleSheet.create({
@@ -85,7 +99,6 @@ export default function PerfilScreen() {
 
   return (
     <ScrollView style={[styles.container, dynamicStyles.container]}>
-      
       <LinearGradient
         colors={theme === 'dark' ? gradients.dark : gradients.primary}
         style={styles.header}
@@ -102,8 +115,8 @@ export default function PerfilScreen() {
               />
             </LinearGradient>
           </View>
-          
-          <Text style={styles.headerName}>{nome || 'Administrador'}</Text>
+
+          <Text style={styles.headerName}>{nome || t('common.profile', 'Administrador')}</Text>
           <Text style={styles.headerEmail}>{email}</Text>
         </View>
       </LinearGradient>
@@ -113,16 +126,17 @@ export default function PerfilScreen() {
         {/* Configurações */}
         <Card style={styles.settingsCard}>
           <Text style={[styles.sectionTitle, dynamicStyles.userName]}>
-            Configurações
+            {t('profile.settings', 'Configurações')}
           </Text>
 
+          {/* Tema claro/escuro */}
           <View style={styles.settingItem}>
             <View style={styles.settingInfo}>
               <Text style={[styles.settingLabel, dynamicStyles.settingLabel]}>
-                Modo Escuro
+                {t('profile.dark_mode', 'Modo Escuro')}
               </Text>
               <Text style={[styles.settingDescription, dynamicStyles.settingDescription]}>
-                Alterne entre tema claro e escuro
+                {t('profile.dark_mode_desc', 'Alterne entre tema claro e escuro')}
               </Text>
             </View>
             <Switch
@@ -133,23 +147,48 @@ export default function PerfilScreen() {
               value={theme === 'dark'}
             />
           </View>
+
+          {/* Idioma */}
+          <View style={styles.settingItem}>
+            <View style={styles.settingInfo}>
+              <Text style={[styles.settingLabel, dynamicStyles.settingLabel]}>
+                {t('common.language', 'Idioma')}
+              </Text>
+              <Text style={[styles.settingDescription, dynamicStyles.settingDescription]}>
+                {t('common.language_desc', 'Escolha o idioma do aplicativo')}
+              </Text>
+            </View>
+            <View style={{ flexDirection: 'row' }}>
+              <Button
+                title="PT"
+                variant="outline"
+                style={{ marginRight: spacing[2] }}
+                onPress={() => changeLang('pt')}
+              />
+              <Button
+                title="ES"
+                variant="outline"
+                onPress={() => changeLang('es')}
+              />
+            </View>
+          </View>
         </Card>
 
         {/* Ações */}
         <Card style={styles.actionsCard}>
           <Text style={[styles.sectionTitle, dynamicStyles.userName]}>
-            Ações
+            {t('profile.actions', 'Ações')}
           </Text>
 
           <Button
-            title="🔄 Ver Onboarding Novamente"
+            title={`🔄 ${t('profile.onboarding_again', 'Ver Onboarding Novamente')}`}
             variant="outline"
             onPress={verOnboardingNovamente}
             style={styles.actionButton}
           />
 
           <Button
-            title="Sair do Aplicativo!"
+            title={t('common.logout', 'Sair do Aplicativo')}
             variant="secondary"
             onPress={handleLogout}
             style={styles.actionButton}
@@ -159,12 +198,12 @@ export default function PerfilScreen() {
         {/* Informações do App */}
         <Card style={styles.infoCard}>
           <Text style={[styles.sectionTitle, dynamicStyles.userName]}>
-            Sobre o App
+            {t('about_app.title', 'Sobre o App')}
           </Text>
-          
+
           <View style={styles.infoItem}>
             <Text style={[styles.infoLabel, dynamicStyles.settingLabel]}>
-              Versão
+              {t('about_app.version', 'Versão')}
             </Text>
             <Text style={[styles.infoValue, dynamicStyles.settingDescription]}>
               1.0.0
@@ -173,19 +212,28 @@ export default function PerfilScreen() {
 
           <View style={styles.infoItem}>
             <Text style={[styles.infoLabel, dynamicStyles.settingLabel]}>
-              Desenvolvido por
+              {t('profile.developed_by', 'Desenvolvido por')}
             </Text>
             <Text style={[styles.infoValue, dynamicStyles.settingDescription]}>
-              Equipe Track In
+              {t('profile.team_name', 'Equipe Track In')}
             </Text>
           </View>
 
           <View style={styles.infoItem}>
             <Text style={[styles.infoLabel, dynamicStyles.settingLabel]}>
-              Challenge FIAP
+              {t('profile.challenge', 'Challenge FIAP')}
             </Text>
             <Text style={[styles.infoValue, dynamicStyles.settingDescription]}>
               2025
+            </Text>
+          </View>
+
+          <View style={styles.infoItem}>
+            <Text style={[styles.infoLabel, dynamicStyles.settingLabel]}>
+              {t('about_app.commit_hash', 'Hash do Commit')}
+            </Text>
+            <Text style={[styles.infoValue, dynamicStyles.settingDescription]}>
+              fecfe46
             </Text>
           </View>
         </Card>
@@ -195,21 +243,15 @@ export default function PerfilScreen() {
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
+  container: { flex: 1 },
   header: {
     paddingTop: spacing[16],
     paddingBottom: spacing[8],
     paddingHorizontal: spacing[6],
     alignItems: 'center',
   },
-  profileSection: {
-    alignItems: 'center',
-  },
-  avatarContainer: {
-    marginBottom: spacing[4],
-  },
+  profileSection: { alignItems: 'center' },
+  avatarContainer: { marginBottom: spacing[4] },
   avatarGradient: {
     width: 100,
     height: 100,
@@ -218,11 +260,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
-  avatar: {
-    width: 92,
-    height: 92,
-    borderRadius: 46,
-  },
+  avatar: { width: 92, height: 92, borderRadius: 46 },
   headerName: {
     fontSize: typography.fontSize['2xl'],
     fontFamily: typography.fontFamily.bold,
@@ -235,21 +273,10 @@ const styles = StyleSheet.create({
     color: colors.light.background,
     opacity: 0.9,
   },
-  content: {
-    padding: spacing[6],
-    marginTop: -spacing[4],
-  },
-  settingsCard: {
-    marginBottom: spacing[6],
-    padding: spacing[6],
-  },
-  actionsCard: {
-    marginBottom: spacing[6],
-    padding: spacing[6],
-  },
-  infoCard: {
-    padding: spacing[6],
-  },
+  content: { padding: spacing[6], marginTop: -spacing[4] },
+  settingsCard: { marginBottom: spacing[6], padding: spacing[6] },
+  actionsCard: { marginBottom: spacing[6], padding: spacing[6] },
+  infoCard: { padding: spacing[6] },
   sectionTitle: {
     fontSize: typography.fontSize.lg,
     fontFamily: typography.fontFamily.semibold,
@@ -261,10 +288,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     paddingVertical: spacing[3],
   },
-  settingInfo: {
-    flex: 1,
-    marginRight: spacing[4],
-  },
+  settingInfo: { flex: 1, marginRight: spacing[4] },
   settingLabel: {
     fontSize: typography.fontSize.base,
     fontFamily: typography.fontFamily.medium,
@@ -274,9 +298,7 @@ const styles = StyleSheet.create({
     fontSize: typography.fontSize.sm,
     fontFamily: typography.fontFamily.regular,
   },
-  actionButton: {
-    marginBottom: spacing[3],
-  },
+  actionButton: { marginBottom: spacing[3] },
   infoItem: {
     flexDirection: 'row',
     justifyContent: 'space-between',
@@ -294,4 +316,3 @@ const styles = StyleSheet.create({
     fontFamily: typography.fontFamily.regular,
   },
 });
-

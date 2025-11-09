@@ -6,9 +6,11 @@ import { colors, gradients } from '../styles/colors';
 import { typography } from '../styles/typography';
 import { spacing } from '../styles/spacing';
 import { Card } from '../components/ui/Card';
+import { useTranslation } from 'react-i18next'; // tradução
 
 export default function HomeScreen() {
   const { theme } = useTheme();
+  const { t } = useTranslation();
 
   const dynamicStyles = StyleSheet.create({
     container: {
@@ -24,45 +26,41 @@ export default function HomeScreen() {
 
   return (
     <ScrollView style={[styles.container, dynamicStyles.container]}>
-      
       <LinearGradient
         colors={theme === 'dark' ? gradients.dark : gradients.primary}
         style={styles.header}
       >
         <View style={styles.headerContent}>
-          <Image 
-            source={require('../../assets/trackin-logo.png')} 
-            style={styles.logo} 
+          <Image
+            source={require('../../assets/trackin-logo.png')}
+            style={styles.logo}
           />
           <Text style={styles.headerTitle}>Track In</Text>
           <Text style={styles.headerSubtitle}>
-            Controle inteligente de motos
+            {t('home.header_subtitle')}
           </Text>
         </View>
       </LinearGradient>
 
-      
       <View style={styles.content}>
         <Text style={[styles.welcomeTitle, dynamicStyles.welcomeText]}>
-          Bem-vindo ao futuro do gerenciamento
-        </Text>
-        
-        <Text style={[styles.description, dynamicStyles.subtitleText]}>
-          Gerencie suas motos com tecnologia de ponta utilizando RFID, 
-          visão computacional e monitoramento inteligente em tempo real.
+          {t('home.welcome_title')}
         </Text>
 
-        
+        <Text style={[styles.description, dynamicStyles.subtitleText]}>
+          {t('home.description')}
+        </Text>
+
         <View style={styles.featuresGrid}>
           <Card style={styles.featureCard}>
             <View style={styles.featureIcon}>
               <Text style={styles.featureEmoji}>🏍️</Text>
             </View>
             <Text style={[styles.featureTitle, dynamicStyles.welcomeText]}>
-              Controle Total
+              {t('home.feature_control_title')}
             </Text>
             <Text style={[styles.featureDescription, dynamicStyles.subtitleText]}>
-              Monitore todas as suas motos em tempo real
+              {t('home.feature_control_desc')}
             </Text>
           </Card>
 
@@ -71,10 +69,10 @@ export default function HomeScreen() {
               <Text style={styles.featureEmoji}>📡</Text>
             </View>
             <Text style={[styles.featureTitle, dynamicStyles.welcomeText]}>
-              RFID Avançado
+              {t('home.feature_rfid_title')}
             </Text>
             <Text style={[styles.featureDescription, dynamicStyles.subtitleText]}>
-              Rastreamento preciso com tecnologia RFID
+              {t('home.feature_rfid_desc')}
             </Text>
           </Card>
 
@@ -83,10 +81,10 @@ export default function HomeScreen() {
               <Text style={styles.featureEmoji}>👁️</Text>
             </View>
             <Text style={[styles.featureTitle, dynamicStyles.welcomeText]}>
-              Visão Computacional
+              {t('home.feature_vision_title')}
             </Text>
             <Text style={[styles.featureDescription, dynamicStyles.subtitleText]}>
-              Reconhecimento inteligente por imagem
+              {t('home.feature_vision_desc')}
             </Text>
           </Card>
 
@@ -95,10 +93,10 @@ export default function HomeScreen() {
               <Text style={styles.featureEmoji}>📊</Text>
             </View>
             <Text style={[styles.featureTitle, dynamicStyles.welcomeText]}>
-              Analytics
+              {t('home.feature_analytics_title')}
             </Text>
             <Text style={[styles.featureDescription, dynamicStyles.subtitleText]}>
-              Relatórios detalhados e insights
+              {t('home.feature_analytics_desc')}
             </Text>
           </Card>
         </View>
@@ -108,18 +106,14 @@ export default function HomeScreen() {
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
+  container: { flex: 1 },
   header: {
     paddingTop: spacing[16],
     paddingBottom: spacing[8],
     paddingHorizontal: spacing[6],
     alignItems: 'center',
   },
-  headerContent: {
-    alignItems: 'center',
-  },
+  headerContent: { alignItems: 'center' },
   logo: {
     width: 80,
     height: 80,
@@ -140,7 +134,7 @@ const styles = StyleSheet.create({
   },
   content: {
     padding: spacing[6],
-    marginTop: -spacing[4], 
+    marginTop: -spacing[4],
   },
   welcomeTitle: {
     fontSize: typography.fontSize['2xl'],
@@ -176,9 +170,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     marginBottom: spacing[3],
   },
-  featureEmoji: {
-    fontSize: 24,
-  },
+  featureEmoji: { fontSize: 24 },
   featureTitle: {
     fontSize: typography.fontSize.lg,
     fontFamily: typography.fontFamily.semibold,
@@ -192,4 +184,3 @@ const styles = StyleSheet.create({
     lineHeight: typography.lineHeight.relaxed * typography.fontSize.sm,
   },
 });
-

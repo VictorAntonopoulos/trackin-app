@@ -1,14 +1,15 @@
-import { StatusBar } from 'expo-status-bar';
+import { StatusBar } from "expo-status-bar";
 import {
   useFonts,
   Poppins_400Regular,
   Poppins_600SemiBold,
-} from '@expo-google-fonts/poppins';
-import * as SplashScreen from 'expo-splash-screen';
-import { useCallback, useEffect, useState } from 'react';
-import MainStack from './src/navigation/MainStack';
-import { ThemeProvider, useTheme } from './src/context/ThemeContext'; // Importar ThemeProvider e useTheme
-import { View } from 'react-native'; // Importar View para envolver o conteúdo
+} from "@expo-google-fonts/poppins";
+import * as SplashScreen from "expo-splash-screen";
+import { useCallback, useEffect, useState } from "react";
+import MainStack from "./src/navigation/MainStack";
+import { ThemeProvider, useTheme } from "./src/context/ThemeContext";
+import { View, Text } from "react-native";
+import { initI18n } from "./src/i18n";
 
 SplashScreen.preventAutoHideAsync();
 
@@ -19,24 +20,66 @@ function AppContent() {
   });
 
   const [isReady, setIsReady] = useState(false);
-  const { theme } = useTheme(); // Usar o tema do contexto
+  const { theme } = useTheme();
 
   const onLayoutRootView = useCallback(async () => {
-    if (fontsLoaded) {
+    try {
       await SplashScreen.hideAsync();
-      setIsReady(true);
+      console.log("✅ Splash escondida");
+    } catch (e) {
+      console.warn("⚠️ Erro ao esconder splash:", e);
     }
-  }, [fontsLoaded]);
+    setIsReady(true);
+  }, []);
 
   useEffect(() => {
-    onLayoutRootView();
+    const prepareApp = async () => {
+      try {
+        console.log("⏳ Inicializando app...");
+        await initI18n();
+        console.log("✅ i18n inicializado!");
+      } catch (err) {
+        console.error("❌ Erro ao inicializar i18n:", err);
+      } finally {
+        // ⏱️ fallback de segurança: mesmo se fonts/i18n falhar, splash some
+        const timeout = setTimeout(() => {
+          console.warn("⚠️ Timeout de inicialização atingido, escondendo splash...");
+          onLayoutRootView();
+        }, 4000);
+
+        if (fontsLoaded) {
+          clearTimeout(timeout);
+          onLayoutRootView();
+        }
+      }
+    };
+
+    prepareApp();
   }, [fontsLoaded]);
 
-  if (!isReady) return null; // ainda carregando fontes
+  if (!isReady) {
+    return (
+      <View
+        style={{
+          flex: 1,
+          justifyContent: "center",
+          alignItems: "center",
+          backgroundColor: "#FFF",
+        }}
+      >
+        <Text>Carregando...</Text>
+      </View>
+    );
+  }
 
   return (
-    <View style={{ flex: 1, backgroundColor: theme === 'dark' ? '#121212' : '#F8F9FA' }}>
-      <StatusBar style={theme === 'dark' ? 'light' : 'dark'} />
+    <View
+      style={{
+        flex: 1,
+        backgroundColor: theme === "dark" ? "#121212" : "#F8F9FA",
+      }}
+    >
+      <StatusBar style={theme === "dark" ? "light" : "dark"} />
       <MainStack />
     </View>
   );
@@ -49,5 +92,3 @@ export default function App() {
     </ThemeProvider>
   );
 }
-
-
