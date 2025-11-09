@@ -107,7 +107,7 @@ trackin-app-att/
 ```bash
 # Clonar o repositório
 git clone https://github.com/VictorAntonopoulos/trackin-apps.git
-cd trackin-apps
+cd trackin-app
 
 # Instalar dependências
 npm install
